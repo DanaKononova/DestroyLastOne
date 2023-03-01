@@ -1,12 +1,17 @@
-public class GameStartMessage extends GameMessage {
-    private Player player;
+public class GameStartMessage implements GameMessage {
+    private Players players;
+    //окошко, два кнопки и текстовое поле
 
-    public GameStartMessage(Player player) {
-        this.player = player;
+    public GameStartMessage(Players players) {
+        this.players = players;
     }
 
     @Override
     public void drawMessage() {
+
+    }
+
+    public void setCurrentPlayer(){
 
     }
 }

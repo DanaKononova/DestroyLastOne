@@ -1,11 +1,32 @@
 public class Game {
-    private Player player;
+    private GameField gameField;
+    private Players players;
 
     public static void main(String[] args) {
-        gameStart();
+        onStart();
     }
 
-    public static void gameStart() {
+    public static void onStart() {
+
+    }
+
+    public static void pauseGame() {
+
+    }
+
+    public static void resumeGame() {
+
+    }
+
+    public static void gameFinished(){
+
+    }
+
+    public static void loadFromFile() {
+
+    }
+
+    public static void saveInFile() {
 
     }
 }

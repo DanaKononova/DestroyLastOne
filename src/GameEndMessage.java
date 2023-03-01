@@ -1,10 +1,10 @@
-public class GameEndMessage extends GameMessage{
+public class GameEndMessage implements GameMessage {
     public Player player;
-    public GamePlayStatic gamePlayStatic;
+    public PlayerStatistic playerStatistic;
 
-    public GameEndMessage(Player player, GamePlayStatic gamePlayStatic) {
+    public GameEndMessage(Player player, PlayerStatistic playerStatistic) {
         this.player = player;
-        this.gamePlayStatic = gamePlayStatic;
+        this.playerStatistic = playerStatistic;
     }
 
     @Override

@@ -1,15 +1,31 @@
 public class GameBlock extends GameFigure{
-    private float width;
-    private float height;
+    private GameBonus gameBonus;
 
-    public GameBlock(float startX, float startY, float width, float height, String color) {
-        super(startX, startY, color);
-        this.width = width;
-        this.height = height;
+    public GameBlock(int startX, int startY, int endX, int endY, int centerX, int centerY, int color, int bgColor, int drawAmount) {
+        super(startX, startY, endX, endY, centerX, centerY, color, bgColor, drawAmount);
+    }
+
+
+    @Override
+    void figureMove() {
+
     }
 
     @Override
-    public void figureMove() {
+    void didHitFigure(GameFigure gameFigure) {
 
+    }
+
+    @Override
+    void draw() {
+
+    }
+
+    public GameBonus getGameBonus() {
+        return gameBonus;
+    }
+
+    public void setGameBonus(GameBonus gameBonus) {
+        this.gameBonus = gameBonus;
     }
 }
