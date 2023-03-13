@@ -8,8 +8,11 @@ public class GameBonuses {
     public void addBonus(GameBonus gameBonus) {
 
     }
-    //вместо удаления менять свойство vizible
     public void removeBonus(GameBonus gameBonus) {
+
+    }
+
+    public void changeVisibility(BallDesk ballDesk){
 
     }
 }

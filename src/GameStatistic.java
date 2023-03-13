@@ -8,4 +8,12 @@ public class GameStatistic {
     public void comparePlayers(){
 
     }
+
+    public void saveStatistic(){
+
+    }
+
+    public void loadStatistic(){
+
+    }
 }

@@ -8,8 +8,11 @@ public class GameBlocks {
     public void addBlock(GameBlock gameBlock) {
 
     }
-    //вместо удаления менять свойство vizible
     public void removeBlock(GameBlock gameBlock) {
+
+    }
+
+    public void changeVisibility(BallDesk ballDesk){
 
     }
 

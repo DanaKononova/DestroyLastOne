@@ -1,7 +1,7 @@
-public class DisplayFigure {
+public class DisplayObject {
     private GameFigure figures[];
 
-    public DisplayFigure() {
+    public DisplayObject() {
 
     }
 

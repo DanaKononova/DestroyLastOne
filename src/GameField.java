@@ -1,19 +1,17 @@
 public class GameField {
-    private DisplayFigure displayFigure;
+    private DisplayObject displayObject;
     private GameStatistic gameStatistic;
     private int width;
     private int height;
     private int background;
-    private GameStartMessage gameStartMessage;
-    private GameEndMessage gameEndMessage;
+    private GameMessageBox gameMessageBox;
 
-    public GameField(DisplayFigure displayFigure, GameStatistic gameStatistic, GameStartMessage gameStartMessage, GameEndMessage gameEndMessage, int width, int height, int background) {
-        this.displayFigure = displayFigure;
+    public GameField(DisplayObject displayObject, GameStatistic gameStatistic, GameMessageBox gameMessageBox, int width, int height, int background) {
+        this.displayObject = displayObject;
         this.width = width;
         this.height = height;
         this.background = background;
-        this.gameStartMessage = gameStartMessage;
-        this.gameEndMessage = gameEndMessage;
+        this.gameMessageBox = gameMessageBox;
     }
 
     public void setBackground(){
@@ -24,12 +22,12 @@ public class GameField {
 
     }
 
-    public DisplayFigure getDisplayFigure() {
-        return displayFigure;
+    public DisplayObject getDisplayFigure() {
+        return displayObject;
     }
 
-    public void setDisplayFigure(DisplayFigure displayFigure) {
-        this.displayFigure = displayFigure;
+    public void setDisplayFigure(DisplayObject displayObject) {
+        this.displayObject = displayObject;
     }
 
     public float getWidth() {
