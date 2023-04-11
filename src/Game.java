@@ -1,13 +1,9 @@
 public class Game {
-    private GameField gameField;
-    private Players players;
+    static GameField gameField;
+    Players players;
 
-    public static void main(String[] args) {
-        onStart();
-    }
-
-    public static void onStart() {
-
+    public static void main(String[] args) throws InterruptedException {
+        gameField = new GameField();
     }
 
     public static void pauseGame() {

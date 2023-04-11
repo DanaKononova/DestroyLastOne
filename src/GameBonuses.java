@@ -1,5 +1,5 @@
 public class GameBonuses {
-    private GameBonus gameBonuses[];
+    private GameBonus[] gameBonuses;
 
     public GameBonus getBonus(int index){
         return null;

@@ -1,8 +1,13 @@
-public class GameBlock extends GameFigure{
-    private GameBonus gameBonus;
+import java.awt.*;
 
-    public GameBlock(int startX, int startY, int endX, int endY, int centerX, int centerY, int color, int bgColor, int drawAmount) {
-        super(startX, startY, endX, endY, centerX, centerY, color, bgColor, drawAmount);
+import static java.lang.Math.abs;
+
+public class GameBlock extends GameFigure {
+    private GameBonus gameBonus;
+    private Boolean isHitted = false;
+
+    public GameBlock(int startX, int startY, int endX, int endY, int X, int Y, Color color, Color bgColor, int drawAmount, Boolean isStatic, float direction) {
+        super(startX, startY, endX, endY, X, Y, color, bgColor, drawAmount, isStatic, direction);
     }
 
 
@@ -12,13 +17,19 @@ public class GameBlock extends GameFigure{
     }
 
     @Override
-    void didHitFigure(GameFigure gameFigure) {
-
-    }
-
-    @Override
-    void draw() {
-
+    void draw(Graphics2D g2d) {
+        if (!isHitted) {
+            g2d.setColor(color);
+            Rectangle rect = new Rectangle(startX, startY, abs(startX - endX), abs(startY - endY));
+            g2d.fill(rect);
+            g2d.setColor(bgColor);
+            g2d.draw(rect);
+        } else {
+            startX = 0;
+            endX = 0;
+            startY = 0;
+            endY = 0;
+        }
     }
 
     public GameBonus getGameBonus() {
@@ -27,5 +38,9 @@ public class GameBlock extends GameFigure{
 
     public void setGameBonus(GameBonus gameBonus) {
         this.gameBonus = gameBonus;
+    }
+
+    public void setHitted(Boolean hitted) {
+        isHitted = hitted;
     }
 }

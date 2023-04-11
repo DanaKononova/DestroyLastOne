@@ -1,56 +1,33 @@
-public class GameField {
-    private DisplayObject displayObject;
-    private GameStatistic gameStatistic;
-    private int width;
-    private int height;
-    private int background;
-    private GameMessageBox gameMessageBox;
+import javax.swing.*;
+import java.awt.*;
 
-    public GameField(DisplayObject displayObject, GameStatistic gameStatistic, GameMessageBox gameMessageBox, int width, int height, int background) {
-        this.displayObject = displayObject;
-        this.width = width;
-        this.height = height;
-        this.background = background;
-        this.gameMessageBox = gameMessageBox;
-    }
+public class GameField extends JFrame{
+    DisplayObjects displayObjects;
+    GameStatistic gameStatistic;
+    int width = 1000;
+    int height = 600;
+    int background;
+    GameMessageBox gameMessageBox;
 
-    public void setBackground(){
-
+    public GameField() throws InterruptedException {
+        setTitle("Destroy Last One");
+        displayObjects = new DisplayObjects();
+        getContentPane().add(displayObjects);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(width, height);
+        getContentPane().setBackground(Color.blue);
+        setVisible(true);
+        displayObjects.drawAll();
     }
 
     public void isFinished(){
-
     }
 
-    public DisplayObject getDisplayFigure() {
-        return displayObject;
+    public DisplayObjects getDisplayFigures() {
+        return displayObjects;
     }
 
-    public void setDisplayFigure(DisplayObject displayObject) {
-        this.displayObject = displayObject;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getBackground() {
-        return background;
-    }
-
-    public void setBackground(int background) {
-        this.background = background;
+    public void setDisplayFigures(DisplayObjects displayObjects) {
+        this.displayObjects = displayObjects;
     }
 }
