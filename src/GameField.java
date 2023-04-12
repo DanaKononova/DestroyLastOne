@@ -17,10 +17,6 @@ public class GameField extends JFrame{
         setSize(width, height);
         getContentPane().setBackground(Color.blue);
         setVisible(true);
-        displayObjects.drawAll();
-    }
-
-    public void isFinished(){
     }
 
     public DisplayObjects getDisplayFigures() {

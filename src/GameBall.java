@@ -36,7 +36,4 @@ public class GameBall extends GameFigure {
         g2d.setColor(color);
         g2d.fillOval(startX, startY, abs(startX - endX), abs(startY - endY));
     }
-
-    public void changeDirection() {
-    }
 }

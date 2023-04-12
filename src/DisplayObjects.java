@@ -4,15 +4,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class DisplayObjects extends JPanel {
-    private GameFigure figures[];
-    private int figuresAmount = 102;
+    private GameFigure[] figures;
     private BallDesk currentDesk;
     private int currentIndex = 0;
 
     public DisplayObjects() {
+        int figuresAmount = 102;
         figures = new GameFigure[figuresAmount];
         GameBlocks blocks = new GameBlocks();
         addFigure(blocks.getGameBlocks());
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                currentDesk.key = e;
+            }
+        });
         BallDesks desks = new BallDesks();
         currentDesk = desks.getDesk(0);
         addFigure(desks.getBallDesks());
@@ -38,30 +44,6 @@ public class DisplayObjects extends JPanel {
             currentIndex++;
         }
     }
-
-    public void drawAll() throws InterruptedException {
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                currentDesk.key = e;
-            }
-        });
-        while (true) {
-            for (GameFigure figure : figures) {
-                if (!figure.isStatic) {
-                    figure.figureMove();
-                    for (GameFigure anotherFigure : figures) {
-                        if (!figure.equals(anotherFigure)) {
-                            figure.isCollides(anotherFigure);
-                        }
-                    }
-                }
-            }
-            this.repaint();
-            Thread.sleep(7);
-        }
-    }
-
     public void removeFigure(GameFigure figures[]) {
     }
 
