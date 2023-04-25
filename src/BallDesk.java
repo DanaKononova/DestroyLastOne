@@ -6,8 +6,8 @@ import static java.lang.Math.abs;
 public class BallDesk extends GameFigure {
     KeyEvent key;
 
-    public BallDesk(int startX, int startY, int endX, int endY, int centerX, int centerY, Color color, Color bgColor, int drawAmount, boolean isStatic, float direction) {
-        super(startX, startY, endX, endY, centerX, centerY, color, bgColor, drawAmount, isStatic, direction);
+    public BallDesk(int startX, int startY, int endX, int endY, int centerX, int centerY, Color color, Color bgColor, int drawAmount, boolean isStatic, int dx, int dy) {
+        super(startX, startY, endX, endY, centerX, centerY, color, bgColor, drawAmount, isStatic, dx, dy);
     }
 
     @Override

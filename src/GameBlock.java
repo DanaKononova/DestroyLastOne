@@ -6,14 +6,13 @@ public class GameBlock extends GameFigure {
     private GameBonus gameBonus;
     private Boolean isHitted = false;
 
-    public GameBlock(int startX, int startY, int endX, int endY, int X, int Y, Color color, Color bgColor, int drawAmount, Boolean isStatic, float direction) {
-        super(startX, startY, endX, endY, X, Y, color, bgColor, drawAmount, isStatic, direction);
+    public GameBlock(int startX, int startY, int endX, int endY, int X, int Y, Color color, Color bgColor, int drawAmount, Boolean isStatic, int dx, int dy) {
+        super(startX, startY, endX, endY, X, Y, color, bgColor, drawAmount, isStatic, dx, dy);
     }
 
 
     @Override
     void figureMove() {
-
     }
 
     @Override

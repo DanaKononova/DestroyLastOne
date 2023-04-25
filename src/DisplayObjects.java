@@ -9,7 +9,7 @@ public class DisplayObjects extends JPanel {
     private int currentIndex = 0;
 
     public DisplayObjects() {
-        int figuresAmount = 102;
+        int figuresAmount = 74;
         figures = new GameFigure[figuresAmount];
         GameBlocks blocks = new GameBlocks();
         addFigure(blocks.getGameBlocks());

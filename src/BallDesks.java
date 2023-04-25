@@ -7,7 +7,7 @@ public class BallDesks {
 
     public BallDesks() {
         ballDesks = new BallDesk[1];
-        ballDesks[0] = new BallDesk(400, 540, 560, 552, 480, 546, Color.getHSBColor(0.90f, 1.0f, 0.8f), Color.GRAY, 3, false, 1f);
+        ballDesks[0] = new BallDesk(400, 540, 560, 552, 480, 546, Color.getHSBColor(0.90f, 1.0f, 0.8f), Color.GRAY, 3, false, 5, 0);
         addDesk(ballDesks[0]);
     }
 

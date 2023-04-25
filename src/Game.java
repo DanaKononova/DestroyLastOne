@@ -16,7 +16,6 @@ public class Game {
     }
 
     private static void move() {
-
         for (GameFigure figure : gameField.getDisplayFigures().getFigures()) {
             if (!figure.isStatic) {
                 figure.figureMove();
@@ -35,7 +34,7 @@ public class Game {
             }
         }
     }
-
+//timer
     private static void draw() throws InterruptedException {
         gameField.getDisplayFigures().repaint();
         Thread.sleep(7);

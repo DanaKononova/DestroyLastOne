@@ -3,8 +3,8 @@ import java.awt.*;
 public class GameBonus extends GameFigure{
     private int amount;
 
-    public GameBonus(int startX, int startY, int endX, int endY, int centerX, int centerY, Color color, Color bgColor, int drawAmount, Boolean isStatic, float direction) {
-        super(startX, startY, endX, endY, centerX, centerY, color, bgColor, drawAmount, isStatic, direction);
+    public GameBonus(int startX, int startY, int endX, int endY, int centerX, int centerY, Color color, Color bgColor, int drawAmount, Boolean isStatic, int dx, int dy) {
+        super(startX, startY, endX, endY, centerX, centerY, color, bgColor, drawAmount, isStatic, dx, dy);
     }
 
     @Override
