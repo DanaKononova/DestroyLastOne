@@ -1,24 +1,47 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 public class Game {
     static GameField gameField;
     Players players;
+    static Menu menu;
+    Settings settings;
+    static Timer timer;
+
+    public Game() throws InterruptedException {
+        settings = new Settings(this);
+        gameField = new GameField(this);
+    }
 
     public static void main(String[] args) throws InterruptedException {
-        gameField = new GameField();
-        gameLoop();
+        new Game();
     }
 
     public static void gameLoop() throws InterruptedException {
-        while (true) {
-            move();
-            checkCollision();
-            draw();
-        }
+        int delay = 0;
+        timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                move();
+                checkCollision();
+                try {
+                    draw();
+                } catch (InterruptedException ex) {
+                    System.out.println(e.toString());
+                }
+            }
+        });
+        timer.start();
     }
 
     private static void move() {
         for (GameFigure figure : gameField.getDisplayFigures().getFigures()) {
             if (!figure.isStatic) {
-                figure.figureMove();
+                if (!figure.figureMove()) {
+                }
             }
         }
     }
@@ -34,29 +57,51 @@ public class Game {
             }
         }
     }
-//timer
+
     private static void draw() throws InterruptedException {
         gameField.getDisplayFigures().repaint();
-        Thread.sleep(7);
     }
 
-    public static void pauseGame() {
-
+    public void startGame() throws InterruptedException {
+        gameField = new GameField(this);
     }
 
-    public static void resumeGame() {
-
+    public void startNewGame() throws InterruptedException {
+        try {
+            startGame();
+            gameLoop();
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
-    public static void gameFinished(){
-
+    public void pauseGame() {
+        timer.stop();
     }
 
-    public static void loadFromFile() {
-
+    public void resumeGame() throws InterruptedException {
+        if (timer != null) timer.start();
+        else gameLoop();
     }
 
-    public static void saveInFile() {
+    public void loadFromFile() throws InterruptedException {
+        if (gameField == null)
+            gameField = new GameField(this);
+        ProxySerialization proxy = new ProxySerialization();
+       // proxy.deserializeFromJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
+        proxy.deserializeFromTextFile("SaveGame.txt", gameField.displayObjects.getFigures(), settings);
+        for (GameFigure figure : gameField.displayObjects.getFigures()) {
+            if (figure instanceof BallDesk) {
+                gameField.displayObjects.currentDesk = (BallDesk) figure;
+                break;
+            }
+        }
+    }
 
+    public void saveInFile() throws InterruptedException {
+        ProxySerialization proxy = new ProxySerialization();
+        proxy.serializeToTextFile("SaveGame.txt", gameField.displayObjects.getFigures(), settings);
+
+        //proxy.serializeToJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
     }
 }

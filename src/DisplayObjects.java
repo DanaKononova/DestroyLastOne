@@ -2,30 +2,37 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DisplayObjects extends JPanel {
-    private GameFigure[] figures;
-    private BallDesk currentDesk;
-    private int currentIndex = 0;
+    private ArrayList<GameFigure> figures;
+    BallDesk currentDesk;
+    int currentIndex = 0;
 
     public DisplayObjects() {
-        int figuresAmount = 74;
-        figures = new GameFigure[figuresAmount];
+//        int figuresAmount = 74;
+//        figures = new GameFigure[figuresAmount];
+        figures = new ArrayList<GameFigure>();
         GameBlocks blocks = new GameBlocks();
-        addFigure(blocks.getGameBlocks());
+        figures.addAll(blocks.getGameBlocks());
+        addKey();
+        BallDesks desks = new BallDesks();
+        currentDesk = desks.getDesk(0);
+        figures.addAll(desks.getBallDesks());
+        GameBalls balls = new GameBalls();
+        figures.addAll(balls.getGameBalls());
+        setFocusable(true);
+        requestFocusInWindow();
+    }
+
+    public void addKey(){
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 currentDesk.key = e;
             }
         });
-        BallDesks desks = new BallDesks();
-        currentDesk = desks.getDesk(0);
-        addFigure(desks.getBallDesks());
-        GameBalls balls = new GameBalls();
-        addFigure(balls.getGameBalls());
-        setFocusable(true);
-        requestFocusInWindow();
     }
 
     @Override
@@ -38,20 +45,13 @@ public class DisplayObjects extends JPanel {
         }
     }
 
-    public void addFigure(GameFigure figures[]) {
-        for (GameFigure figure : figures) {
-            this.figures[currentIndex] = figure;
-            currentIndex++;
-        }
+    public void addFigure(ArrayList<GameFigure> figures) {
+        this.figures.addAll(figures);
     }
     public void removeFigure(GameFigure figures[]) {
     }
 
-    public GameFigure[] getFigures() {
+    public ArrayList<GameFigure> getFigures() {
         return figures;
-    }
-
-    public void setFigures(GameFigure[] figures) {
-        this.figures = figures;
     }
 }

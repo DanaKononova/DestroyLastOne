@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 public class GameBonuses {
-    private GameBonus[] gameBonuses;
+    private ArrayList<GameBonus> gameBonuses;
 
     public GameBonus getBonus(int index){
         return null;

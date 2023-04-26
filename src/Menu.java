@@ -3,16 +3,13 @@ public class Menu {
     private Button settingsBt;
     private Button newGameBt;
     private Button finishGameBt;
+    Game game;
 
-    public Menu(TextBox menuLabel, Button settingsBt, Button newGameBt, Button finishGameBt) {
-        this.menuLabel = menuLabel;
-        this.settingsBt = settingsBt;
-        this.newGameBt = newGameBt;
-        this.finishGameBt = finishGameBt;
+    public Menu(Game game) {
+        this.game = game;
     }
 
     public void drawMenu(){
-
     }
 
     public void newGameBtClick(){
