@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TextBox extends GameFigure implements Serializable {
+public class TextBox extends GameFigure {
     private String text;
 
     public TextBox(int startX, int startY, int endX, int endY, int X, int Y, int color, int drawAmount, Boolean isStatic, int dx, int dy) {
@@ -101,31 +101,5 @@ public class TextBox extends GameFigure implements Serializable {
         field = this.getClass().getSuperclass().getDeclaredField("isStatic");
         field.setAccessible(true);
         isStatic = (Boolean) field.get(this);
-    }
-
-    @Override
-    public void serializeToTextFile(String filename) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
-            writer.println(getClass().getName());
-            writer.println(getStartX() + "," + startY + "," + endX + "," + endY + "," + X + "," + Y + "," + color + "," + drawAmount + "," + dx + "," + dy + ","+ text);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void deserializeFromTextFile(String content) {
-        String[] parts = content.split(",");
-        setStartX(Integer.parseInt(parts[0]));
-        startY = (Integer.parseInt(parts[1]));
-        endX = (Integer.parseInt(parts[2]));
-        endY = (Integer.parseInt(parts[3]));
-        X = (Integer.parseInt(parts[4]));
-        Y = (Integer.parseInt(parts[5]));
-        color = Integer.parseInt(parts[6]);
-        drawAmount = Integer.parseInt(parts[7]);
-        dx = Integer.parseInt(parts[8]);
-        dy = Integer.parseInt(parts[9]);
-        text = parts[10];
     }
 }

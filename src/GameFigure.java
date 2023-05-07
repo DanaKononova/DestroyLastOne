@@ -3,7 +3,7 @@ import java.lang.reflect.Field;
 
 import static java.lang.Math.random;
 
-public abstract class GameFigure implements Serialization{
+public abstract class GameFigure{
     private int startX;
     int startY;
     int endX;

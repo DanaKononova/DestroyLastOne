@@ -8,20 +8,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class ProxySerialization {
-    public void serializeToTextFile(String filename, ArrayList<GameFigure> figures, Settings settings) {
-        try {
-            FileWriter writer = new FileWriter(filename);
-            writer.write("");
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (GameFigure figure : figures) {
-            figure.serializeToTextFile(filename);
-        }
-        settings.serializeToTextFile(filename);
-    }
-
     public void serializeField(String filename, Object obj) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
             writer.println(obj.getClass().getName());
@@ -88,28 +74,6 @@ public class ProxySerialization {
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException |
                  NoSuchFieldException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void deserializeFromTextFile(String filename, ArrayList<GameFigure> figures, Settings settings) {
-        figures.clear();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            while (true) {
-                String className = reader.readLine();
-                if (className == null) break;
-                if (className.equals("Settings")) {
-                    settings.deserializeFromTextFile(reader.readLine());
-                } else {
-                    Class<?> clazz = Class.forName(className);
-                    GameFigure date = (GameFigure) clazz.newInstance();
-                    date.deserializeFromTextFile(reader.readLine());
-                    figures.add(date);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
         }
     }
 

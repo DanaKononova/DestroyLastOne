@@ -2,7 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Settings implements Serialization {
+public class Settings {
     private int volume;
     private int brightness;
     private int difficulty;
@@ -37,21 +37,4 @@ public class Settings implements Serialization {
         this.volume = volume;
     }
 
-    @Override
-    public void serializeToTextFile(String filename) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
-            writer.println(getClass().getName());
-            writer.println(volume + "," + brightness + "," + difficulty);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void deserializeFromTextFile(String content) {
-        String[] parts = content.split(",");
-        volume = (Integer.parseInt(parts[0]));
-        brightness = (Integer.parseInt(parts[1]));
-        difficulty = (Integer.parseInt(parts[2]));
-    }
 }
