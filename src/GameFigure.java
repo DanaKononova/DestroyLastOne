@@ -60,6 +60,8 @@ public abstract class GameFigure implements Serialization{
 
     abstract Object createFieldObject() throws IllegalAccessException, NoSuchFieldException;
 
+    abstract void deserializeFromField() throws NoSuchFieldException, IllegalAccessException;
+
     public int getStartX() {
         return startX;
     }

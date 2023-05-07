@@ -93,7 +93,8 @@ public class Game {
             gameField = new GameField(this);
         ProxySerialization proxy = new ProxySerialization();
        // proxy.deserializeFromJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
-        proxy.deserializeFromTextFile("SaveGame.txt", gameField.displayObjects.getFigures(), settings);
+        //proxy.deserializeFromTextFile("SaveGame.txt", gameField.displayObjects.getFigures(), settings);
+        proxy.deserializeFields("SaveGame.txt", gameField.displayObjects.getFigures());
         for (GameFigure figure : gameField.displayObjects.getFigures()) {
             if (figure instanceof BallDesk) {
                 gameField.displayObjects.currentDesk = (BallDesk) figure;

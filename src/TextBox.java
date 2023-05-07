@@ -67,6 +67,43 @@ public class TextBox extends GameFigure implements Serializable {
     }
 
     @Override
+    public void deserializeFromField() throws NoSuchFieldException, IllegalAccessException {
+        Field field = this.getClass().getSuperclass().getDeclaredField("startX");
+        field.setAccessible(true);
+        setStartX((Integer) field.get(this));
+        field = super.getClass().getSuperclass().getDeclaredField("startY");
+        field.setAccessible(true);
+        startY = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("endX");
+        field.setAccessible(true);
+        endX = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("endY");
+        field.setAccessible(true);
+        endY = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("X");
+        field.setAccessible(true);
+        X = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("Y");
+        field.setAccessible(true);
+        Y = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("color");
+        field.setAccessible(true);
+        color = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("drawAmount");
+        field.setAccessible(true);
+        drawAmount = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("dx");
+        field.setAccessible(true);
+        dx = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("dy");
+        field.setAccessible(true);
+        dy = (int) field.get(this);
+        field = this.getClass().getSuperclass().getDeclaredField("isStatic");
+        field.setAccessible(true);
+        isStatic = (Boolean) field.get(this);
+    }
+
+    @Override
     public void serializeToTextFile(String filename) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
             writer.println(getClass().getName());
