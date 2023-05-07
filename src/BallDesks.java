@@ -8,7 +8,7 @@ public class BallDesks {
 
     public BallDesks() {
         ballDesks = new ArrayList<>();
-        BallDesk ballDesk = new BallDesk(400, 540, 560, 552, 480, 546, 164, 36, 75, 3, false, 5, 0);
+        BallDesk ballDesk = new BallDesk(400, 540, 560, 552, 480, 546, new Color(164, 36, 75).getRGB(), 3, false, 5, 0);
         addDesk(ballDesk);
     }
 

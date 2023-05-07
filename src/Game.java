@@ -3,6 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.Field;
 
 public class Game {
     static GameField gameField;
@@ -98,10 +102,17 @@ public class Game {
         }
     }
 
-    public void saveInFile() throws InterruptedException {
+    public void saveInFile() throws InterruptedException, NoSuchFieldException, IllegalAccessException {
         ProxySerialization proxy = new ProxySerialization();
-        proxy.serializeToTextFile("SaveGame.txt", gameField.displayObjects.getFigures(), settings);
-
+        try (PrintWriter writer = new PrintWriter(new FileWriter("SaveGame.txt", false))) {
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (GameFigure figure: gameField.displayObjects.getFigures()){
+            proxy.serializeField("SaveGame.txt", figure.createFieldObject());
+        }
+        //proxy.serializeToTextFile("SaveGame.txt", gameField.displayObjects.getFigures(), settings);
         //proxy.serializeToJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
     }
 }

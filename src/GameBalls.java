@@ -8,7 +8,7 @@ public class GameBalls {
 
     public GameBalls() {
         gameBalls = new ArrayList<>();
-        addBall(new GameBall(436,519,458,541,446,533, 245, 147, 35,2, false, 1, 3));
+        addBall(new GameBall(436,519,458,541,446,533, new Color(245, 147, 35).getRGB(),2, false, 1, 3));
     }
 
     public ArrayList<GameBall> getGameBalls() {

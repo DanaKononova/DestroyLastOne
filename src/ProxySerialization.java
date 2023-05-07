@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class ProxySerialization {
@@ -19,6 +20,19 @@ public class ProxySerialization {
             figure.serializeToTextFile(filename);
         }
         settings.serializeToTextFile(filename);
+    }
+
+    public void serializeField(String filename, Object obj){
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
+            writer.println(obj.getClass().getName());
+            System.out.println(obj.getClass().getFields().length);
+            for (Field field: obj.getClass().getFields()) {
+                System.out.println(field);
+                writer.println(field.toString()+":"+field.getName()+",");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deserializeFromTextFile(String filename, ArrayList<GameFigure> figures, Settings settings) {

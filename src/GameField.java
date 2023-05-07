@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class GameField extends JFrame{
     DisplayObjects displayObjects;
     GameStatistic gameStatistic;
-    int width = 1500;
+    int width = 1200;
     int height = 600;
     int background;
     GameMessageBox gameMessageBox;
@@ -107,7 +107,7 @@ public class GameField extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 try {
                     game.saveInFile();
-                } catch (InterruptedException ex) {
+                } catch (InterruptedException | NoSuchFieldException | IllegalAccessException ex) {
                     throw new RuntimeException(ex);
                 }
             }

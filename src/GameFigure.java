@@ -1,31 +1,28 @@
 import java.awt.*;
+import java.lang.reflect.Field;
+
 import static java.lang.Math.random;
 
 public abstract class GameFigure implements Serialization{
-    int startX;
+    private int startX;
     int startY;
     int endX;
     int endY;
     int X;
     int Y;
-    int colorR;
-    int colorG;
-    int colorB;
-   // Color bgColor;
+    int color;
     int drawAmount;
     Boolean isStatic;
     int dx;
     int dy;
-    public GameFigure(int startX, int startY, int endX, int endY, int X, int Y, int colorR, int colorG, int colorB, int drawAmount, boolean isStatic, int dx, int dy) {
+    public GameFigure(int startX, int startY, int endX, int endY, int X, int Y, int color, int drawAmount, boolean isStatic, int dx, int dy) {
         this.startX = startX;
         this.startY = startY;
         this.endX = endX;
         this.endY = endY;
         this.X = X;
         this.Y = Y;
-        this.colorR = colorR;
-        this.colorG = colorG;
-        this.colorB = colorB;
+        this.color = color;
         this.drawAmount = drawAmount;
         this.isStatic = isStatic;
         this.dx = dx;
@@ -60,6 +57,8 @@ public abstract class GameFigure implements Serialization{
     }
 
     abstract void draw(Graphics2D g2d);
+
+    abstract Object createFieldObject() throws IllegalAccessException, NoSuchFieldException;
 
     public int getStartX() {
         return startX;
@@ -133,28 +132,12 @@ public abstract class GameFigure implements Serialization{
         this.dy = dy;
     }
 
-    public int getColorR() {
-        return colorR;
+    public int getColor() {
+        return color;
     }
 
-    public void setColorR(int colorR) {
-        this.colorR = colorR;
-    }
-
-    public int getColorG() {
-        return colorG;
-    }
-
-    public void setColorG(int colorG) {
-        this.colorG = colorG;
-    }
-
-    public int getColorB() {
-        return colorB;
-    }
-
-    public void setColorB(int colorB) {
-        this.colorB = colorB;
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public Boolean getStatic() {
