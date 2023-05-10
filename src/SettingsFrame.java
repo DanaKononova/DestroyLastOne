@@ -28,7 +28,7 @@ public class SettingsFrame extends JFrame {
         difficultyComboBox = new JComboBox<>(new String[]{"Лёгкий", "Средний", "Сложный"});
         difficultyComboBox.setSelectedIndex(settings.getDifficulty());
 
-        JButton applyButton = new JButton("Принять");
+        JButton applyButton = new JButton("Ок");
         applyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

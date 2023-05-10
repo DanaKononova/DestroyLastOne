@@ -2,10 +2,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import static java.lang.Math.abs;
@@ -54,39 +50,39 @@ public class BallDesk extends GameFigure{
 
     @Override
     Object createFieldObject() throws IllegalAccessException, NoSuchFieldException {
-        Field field = this.getClass().getSuperclass().getDeclaredField("startX");
-        field.setAccessible(true);
-        field.set(this, this.getStartX());
-        field = super.getClass().getSuperclass().getDeclaredField("startY");
-        field.setAccessible(true);
-        field.set(this, this.startY);
-        field = this.getClass().getSuperclass().getDeclaredField("endX");
-        field.setAccessible(true);
-        field.set(this, this.endX);
-        field = this.getClass().getSuperclass().getDeclaredField("endY");
-        field.setAccessible(true);
-        field.set(this, this.endY);
-        field = this.getClass().getSuperclass().getDeclaredField("X");
-        field.setAccessible(true);
-        field.set(this, this.X);
-        field = this.getClass().getSuperclass().getDeclaredField("Y");
-        field.setAccessible(true);
-        field.set(this, this.Y);
-        field = this.getClass().getSuperclass().getDeclaredField("color");
-        field.setAccessible(true);
-        field.set(this, this.color);
-        field = this.getClass().getSuperclass().getDeclaredField("drawAmount");
-        field.setAccessible(true);
-        field.set(this, this.drawAmount);
-        field = this.getClass().getSuperclass().getDeclaredField("dx");
-        field.setAccessible(true);
-        field.set(this, this.dx);
-        field = this.getClass().getSuperclass().getDeclaredField("dy");
-        field.setAccessible(true);
-        field.set(this, this.dy);
-        field = this.getClass().getSuperclass().getDeclaredField("isStatic");
-        field.setAccessible(true);
-        field.set(this, this.isStatic);
+//        Field field = this.getClass().getSuperclass().getDeclaredField("startX");
+//        field.setAccessible(true);
+//        field.set(this, this.getStartX());
+//        field = super.getClass().getSuperclass().getDeclaredField("startY");
+//        field.setAccessible(true);
+//        field.set(this, this.startY);
+//        field = this.getClass().getSuperclass().getDeclaredField("endX");
+//        field.setAccessible(true);
+//        field.set(this, this.endX);
+//        field = this.getClass().getSuperclass().getDeclaredField("endY");
+//        field.setAccessible(true);
+//        field.set(this, this.endY);
+//        field = this.getClass().getSuperclass().getDeclaredField("X");
+//        field.setAccessible(true);
+//        field.set(this, this.X);
+//        field = this.getClass().getSuperclass().getDeclaredField("Y");
+//        field.setAccessible(true);
+//        field.set(this, this.Y);
+//        field = this.getClass().getSuperclass().getDeclaredField("color");
+//        field.setAccessible(true);
+//        field.set(this, this.color);
+//        field = this.getClass().getSuperclass().getDeclaredField("drawAmount");
+//        field.setAccessible(true);
+//        field.set(this, this.drawAmount);
+//        field = this.getClass().getSuperclass().getDeclaredField("dx");
+//        field.setAccessible(true);
+//        field.set(this, this.dx);
+//        field = this.getClass().getSuperclass().getDeclaredField("dy");
+//        field.setAccessible(true);
+//        field.set(this, this.dy);
+//        field = this.getClass().getSuperclass().getDeclaredField("isStatic");
+//        field.setAccessible(true);
+//        field.set(this, this.isStatic);
         return this;
     }
 

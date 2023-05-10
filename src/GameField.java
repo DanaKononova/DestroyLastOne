@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameField extends JFrame{
+public class GameField extends JFrame {
     DisplayObjects displayObjects;
     GameStatistic gameStatistic;
     int width = 1200;
@@ -87,7 +87,11 @@ public class GameField extends JFrame{
         settingsGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.settings.settingsFrame = new SettingsFrame(game.settings);
+                try {
+                    game.settingsGame();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         loadGameButton.addActionListener(new ActionListener() {

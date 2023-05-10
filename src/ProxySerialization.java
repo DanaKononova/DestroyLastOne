@@ -12,7 +12,7 @@ public class ProxySerialization {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
             writer.println(obj.getClass().getName());
             for (Field field : obj.getClass().getDeclaredFields()) {
-                field.setAccessible(true);
+                // field.setAccessible(true);
                 Object value = field.get(obj);
                 System.out.println(field.getName() + " = " + value);
                 writer.println(field.getName() + ":" + value);
@@ -35,44 +35,65 @@ public class ProxySerialization {
                 String className = reader.readLine();
                 if (className == null) break;
                 Class<?> clazz = Class.forName(className);
-                GameFigure date = (GameFigure) clazz.newInstance();
-                Field[] fields = date.getClass().getDeclaredFields();
-                for (Field field : fields) {
-                    String value = reader.readLine().split(":")[1];
-                    Class<?> fieldType = field.getType();
-                    Object convertedValue = null;
+                if (!className.equals("Settings")) {
+                    GameFigure figure = (GameFigure) clazz.newInstance();
+                    Field[] fields = figure.getClass().getDeclaredFields();
+                    for (Field field : fields) {
+                        String value = reader.readLine().split(":")[1];
+                        Class<?> fieldType = field.getType();
+                        Object convertedValue = null;
 
-                    if (fieldType == int.class || fieldType == Integer.class) {
-                        convertedValue = Integer.parseInt(value);
-                    } else if (fieldType == double.class || fieldType == Double.class) {
-                        convertedValue = Double.parseDouble(value);
-                    } else if (fieldType == boolean.class || fieldType == Boolean.class) {
-                        convertedValue = Boolean.parseBoolean(value);
+                        if (fieldType == int.class || fieldType == Integer.class) {
+                            convertedValue = Integer.parseInt(value);
+                        } else if (fieldType == double.class || fieldType == Double.class) {
+                            convertedValue = Double.parseDouble(value);
+                        } else if (fieldType == boolean.class || fieldType == Boolean.class) {
+                            convertedValue = Boolean.parseBoolean(value);
+                        }
+                        field.setAccessible(true);
+                        field.set(figure, convertedValue);
                     }
-                    field.setAccessible(true);
-                    field.set(date, convertedValue);
-                }
-                fields = date.getClass().getSuperclass().getDeclaredFields();
-                for (Field field : fields) {
-                    String value = reader.readLine().split(":")[1];
-                    Class<?> fieldType = field.getType();
-                    Object convertedValue = null;
+                    fields = figure.getClass().getSuperclass().getDeclaredFields();
+                    for (Field field : fields) {
+                        String value = reader.readLine().split(":")[1];
+                        Class<?> fieldType = field.getType();
+                        Object convertedValue = null;
 
-                    if (fieldType == int.class || fieldType == Integer.class) {
-                        convertedValue = Integer.parseInt(value);
-                    } else if (fieldType == double.class || fieldType == Double.class) {
-                        convertedValue = Double.parseDouble(value);
-                    } else if (fieldType == boolean.class || fieldType == Boolean.class) {
-                        convertedValue = Boolean.parseBoolean(value);
+                        if (fieldType == int.class || fieldType == Integer.class) {
+                            convertedValue = Integer.parseInt(value);
+                        } else if (fieldType == double.class || fieldType == Double.class) {
+                            convertedValue = Double.parseDouble(value);
+                        } else if (fieldType == boolean.class || fieldType == Boolean.class) {
+                            convertedValue = Boolean.parseBoolean(value);
+                        }
+                        field.setAccessible(true);
+                        field.set(figure, convertedValue);
                     }
-                    field.setAccessible(true);
-                    field.set(date, convertedValue);
+                    //figure.deserializeFromField();
+                    figures.add(figure);
+                } else {
+                    Settings figure = (Settings) clazz.newInstance();
+                    Field[] fields = figure.getClass().getDeclaredFields();
+                    for (Field field : fields) {
+                        String value = reader.readLine().split(":")[1];
+                        Class<?> fieldType = field.getType();
+                        Object convertedValue = null;
+
+                        if (fieldType == int.class || fieldType == Integer.class) {
+                            convertedValue = Integer.parseInt(value);
+                        } else if (fieldType == double.class || fieldType == Double.class) {
+                            convertedValue = Double.parseDouble(value);
+                        } else if (fieldType == boolean.class || fieldType == Boolean.class) {
+                            convertedValue = Boolean.parseBoolean(value);
+                        }
+                        field.setAccessible(true);
+                        field.set(figure, convertedValue);
+                    }
+                   // figure.deserializeFromField();
                 }
-                date.deserializeFromField();
-                figures.add(date);
+
             }
-        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException |
-                 NoSuchFieldException e) {
+        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }

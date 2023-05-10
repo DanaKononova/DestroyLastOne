@@ -1,10 +1,6 @@
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import static java.lang.Math.abs;

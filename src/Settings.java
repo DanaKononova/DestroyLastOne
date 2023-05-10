@@ -1,16 +1,39 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.beans.Transient;
+import java.io.Serializable;
+import java.lang.reflect.Field;
 
-public class Settings {
-    private int volume;
-    private int brightness;
-    private int difficulty;
-    SettingsFrame settingsFrame;
-    Game game;
+public class Settings implements Serializable {
+    int volume;
+    int brightness;
+    int difficulty;
+    transient SettingsFrame settingsFrame;
 
-    Settings(Game game) {
-        this.game = game;
+    Settings() {
+    }
+
+    Object createFieldObject() throws IllegalAccessException, NoSuchFieldException {
+        Field field = this.getClass().getDeclaredField("volume");
+        field.setAccessible(true);
+        field.set(this, this.volume);
+        field = super.getClass().getDeclaredField("brightness");
+        field.setAccessible(true);
+        field.set(this, this.brightness);
+        field = this.getClass().getDeclaredField("difficulty");
+        field.setAccessible(true);
+        field.set(this, this.difficulty);
+        return this;
+    }
+
+    public void deserializeFromField() throws NoSuchFieldException, IllegalAccessException {
+        Field field = this.getClass().getDeclaredField("volume");
+        field.setAccessible(true);
+        volume = (int) field.get(this);
+        field = super.getClass().getDeclaredField("brightness");
+        field.setAccessible(true);
+        brightness = (int) field.get(this);
+        field = this.getClass().getDeclaredField("difficulty");
+        field.setAccessible(true);
+        difficulty = (int) field.get(this);
     }
 
     public int getBrightness() {
@@ -37,4 +60,11 @@ public class Settings {
         this.volume = volume;
     }
 
+    public SettingsFrame getSettingsFrame() {
+        return settingsFrame;
+    }
+
+    public void setSettingsFrame(SettingsFrame settingsFrame) {
+        this.settingsFrame = settingsFrame;
+    }
 }

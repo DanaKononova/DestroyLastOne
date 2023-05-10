@@ -16,7 +16,7 @@ public class Game {
     static Timer timer;
 
     public Game() throws InterruptedException {
-        settings = new Settings(this);
+        settings = new Settings();
         gameField = new GameField(this);
     }
 
@@ -44,8 +44,7 @@ public class Game {
     private static void move() {
         for (GameFigure figure : gameField.getDisplayFigures().getFigures()) {
             if (!figure.isStatic) {
-                if (!figure.figureMove()) {
-                }
+                figure.figureMove();
             }
         }
     }
@@ -71,6 +70,7 @@ public class Game {
     }
 
     public void startNewGame() throws InterruptedException {
+        timer.stop();
         try {
             startGame();
             gameLoop();
@@ -84,16 +84,21 @@ public class Game {
     }
 
     public void resumeGame() throws InterruptedException {
-        if (timer != null) timer.start();
-        else gameLoop();
+        if (timer != null) {
+            timer.start();
+        } else gameLoop();
+    }
+
+    public void settingsGame() throws InterruptedException {
+        timer.stop();
+        settings.setSettingsFrame(new SettingsFrame(settings));
     }
 
     public void loadFromFile() throws InterruptedException {
         if (gameField == null)
             gameField = new GameField(this);
         ProxySerialization proxy = new ProxySerialization();
-       // proxy.deserializeFromJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
-        //proxy.deserializeFromTextFile("SaveGame.txt", gameField.displayObjects.getFigures(), settings);
+        //proxy.deserializeFromJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
         proxy.deserializeFields("SaveGame.txt", gameField.displayObjects.getFigures());
         for (GameFigure figure : gameField.displayObjects.getFigures()) {
             if (figure instanceof BallDesk) {
@@ -111,9 +116,9 @@ public class Game {
             e.printStackTrace();
         }
         for (GameFigure figure: gameField.displayObjects.getFigures()){
-            proxy.serializeField("SaveGame.txt", figure.createFieldObject());
+            proxy.serializeField("SaveGame.txt", figure);
         }
-        //proxy.serializeToTextFile("SaveGame.txt", gameField.displayObjects.getFigures(), settings);
-        //proxy.serializeToJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
+         proxy.serializeField("SaveGame.txt", settings);
+       // proxy.serializeToJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
     }
 }
