@@ -1,12 +1,9 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
 
 public class Game {
     static GameField gameField;
@@ -14,10 +11,13 @@ public class Game {
     static Menu menu;
     Settings settings;
     static Timer timer;
+    static long currTime = 0L;
+    StatusBar statusBar;
 
     public Game() throws InterruptedException {
         settings = new Settings();
-        gameField = new GameField(this);
+        statusBar = new StatusBar();
+        gameField = new GameField(this, 1200, 600);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -27,6 +27,8 @@ public class Game {
     public static void gameLoop() throws InterruptedException {
         int delay = 0;
         timer = new Timer(delay, new ActionListener() {
+            long startTime = System.currentTimeMillis();
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 move();
@@ -35,6 +37,12 @@ public class Game {
                     draw();
                 } catch (InterruptedException ex) {
                     System.out.println(e.toString());
+                }
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                if (elapsedTime >= 1000L) {
+                        currTime += 1000L;
+                        gameField.formatTime(currTime);
+                        startTime = System.currentTimeMillis();
                 }
             }
         });
@@ -54,7 +62,8 @@ public class Game {
             if (!figure.isStatic) {
                 for (GameFigure anotherFigure : gameField.getDisplayFigures().getFigures()) {
                     if (!figure.equals(anotherFigure)) {
-                        figure.isCollides(anotherFigure);
+                        boolean isBlockDestroyed = figure.isCollides(anotherFigure);
+                        if (isBlockDestroyed) gameField.setProgressValue();
                     }
                 }
             }
@@ -65,14 +74,16 @@ public class Game {
         gameField.getDisplayFigures().repaint();
     }
 
-    public void startGame() throws InterruptedException {
-        gameField = new GameField(this);
+    public void startGame(int width, int height) throws InterruptedException {
+        if(gameField != null) gameField.close();
+        gameField = new GameField(this, width, height);
     }
 
-    public void startNewGame() throws InterruptedException {
-        timer.stop();
+    public void startNewGame(int width, int height) throws InterruptedException {
+        if (timer != null) timer.stop();
         try {
-            startGame();
+            currTime = 0L;
+            startGame(width, height);
             gameLoop();
         } catch (InterruptedException ex) {
             throw new RuntimeException(ex);
@@ -80,7 +91,7 @@ public class Game {
     }
 
     public void pauseGame() {
-        timer.stop();
+        if(timer != null) timer.stop();
     }
 
     public void resumeGame() throws InterruptedException {
@@ -89,23 +100,19 @@ public class Game {
         } else gameLoop();
     }
 
-    public void settingsGame() throws InterruptedException {
-        timer.stop();
-        settings.setSettingsFrame(new SettingsFrame(settings));
-    }
-
     public void loadFromFile() throws InterruptedException {
         if (gameField == null)
-            gameField = new GameField(this);
+            gameField = new GameField(this, 1200, 600);
         ProxySerialization proxy = new ProxySerialization();
-        //proxy.deserializeFromJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
-        proxy.deserializeFields("SaveGame.txt", gameField.displayObjects.getFigures());
+       // proxy.deserializeFromJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings, statusBar);
+        proxy.deserializeFields("SaveGame.txt", gameField.displayObjects.getFigures(), this);
         for (GameFigure figure : gameField.displayObjects.getFigures()) {
             if (figure instanceof BallDesk) {
                 gameField.displayObjects.currentDesk = (BallDesk) figure;
-                break;
             }
         }
+        gameField.setNullStatusBar();
+        gameField.updateStatusBar();
     }
 
     public void saveInFile() throws InterruptedException, NoSuchFieldException, IllegalAccessException {
@@ -118,7 +125,23 @@ public class Game {
         for (GameFigure figure: gameField.displayObjects.getFigures()){
             proxy.serializeField("SaveGame.txt", figure);
         }
-         proxy.serializeField("SaveGame.txt", settings);
-       // proxy.serializeToJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings);
+        proxy.serializeField("SaveGame.txt", settings);
+        proxy.serializeField("SaveGame.txt", statusBar);
+        // proxy.serializeToJsonFile("SaveGame.json", gameField.displayObjects.getFigures(), settings, statusBar);
     }
+
+    public void settingsGame() throws InterruptedException {
+        if (timer != null) timer.stop();
+        settings.setSettingsFrame(new SettingsFrame(settings, this));
+    }
+
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
+    public void setStatusBar(StatusBar statusBar) {
+        this.statusBar = statusBar;
+    }
+
 }

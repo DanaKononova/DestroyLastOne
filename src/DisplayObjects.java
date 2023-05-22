@@ -9,18 +9,22 @@ public class DisplayObjects extends JPanel {
     private ArrayList<GameFigure> figures;
     BallDesk currentDesk;
     int currentIndex = 0;
+    double sizeKoeff;
+    int width;
+    int height;
 
-    public DisplayObjects() {
-//        int figuresAmount = 74;
-//        figures = new GameFigure[figuresAmount];
+    public DisplayObjects(int width, int height, double sizeKoeff) {
+        this.width = width;
+        this.height = height;
+        this.sizeKoeff = sizeKoeff;
         figures = new ArrayList<GameFigure>();
-        GameBlocks blocks = new GameBlocks();
+        GameBlocks blocks = new GameBlocks(sizeKoeff);
         figures.addAll(blocks.getGameBlocks());
         addKey();
-        BallDesks desks = new BallDesks();
+        BallDesks desks = new BallDesks(sizeKoeff, width, height);
         currentDesk = desks.getDesk(0);
         figures.addAll(desks.getBallDesks());
-        GameBalls balls = new GameBalls();
+        GameBalls balls = new GameBalls(sizeKoeff, width, height);
         figures.addAll(balls.getGameBalls());
         setFocusable(true);
         requestFocusInWindow();
@@ -43,6 +47,9 @@ public class DisplayObjects extends JPanel {
         for (GameFigure figure : figures) {
             figure.draw(g2d);
         }
+        g2d.setColor(Color.BLACK);
+        g2d.drawLine(0, height, width, height);
+        g2d.drawLine(width, 0, width, height);
     }
 
     public void addFigure(ArrayList<GameFigure> figures) {

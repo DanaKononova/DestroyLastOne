@@ -44,6 +44,7 @@ public abstract class GameFigure{
         int x4 = gameFigure.endX;
         int y3 = gameFigure.startY;
         int y4 = gameFigure.endY;
+        boolean isBlockDestroyed = false;
         boolean res = (x2 >= x3) && (x1 <= x4) && (y2 >= y3) && (y1 <= y4);
         if (res) {
             dx = (dx + (int)(random() * 5)) * (-1);
@@ -51,16 +52,13 @@ public abstract class GameFigure{
             if (gameFigure.getClass().toString().equals("class GameBlock")) {
                 GameBlock block = (GameBlock) gameFigure;
                 block.setHitted(true);
+                isBlockDestroyed = true;
             }
         }
-        return res;
+        return isBlockDestroyed;
     }
 
     abstract void draw(Graphics2D g2d);
-
-    abstract Object createFieldObject() throws IllegalAccessException, NoSuchFieldException;
-
-    abstract void deserializeFromField() throws NoSuchFieldException, IllegalAccessException;
 
     public int getStartX() {
         return startX;

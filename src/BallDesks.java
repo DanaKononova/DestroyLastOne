@@ -6,9 +6,9 @@ public class BallDesks {
     private ArrayList<BallDesk> ballDesks;
     private int currentIndex = 0;
 
-    public BallDesks() {
+    public BallDesks(double sizeKoeff, int screenW, int screenH) {
         ballDesks = new ArrayList<>();
-        BallDesk ballDesk = new BallDesk(400, 540, 560, 552, 480, 546, new Color(164, 36, 75).getRGB(), 3, false, 5, 0);
+        BallDesk ballDesk = new BallDesk((int)(400*sizeKoeff), (int)(540*sizeKoeff), (int)(560*sizeKoeff), (int)(552*sizeKoeff), (int)(480*sizeKoeff), (int)(546*sizeKoeff), new Color(164, 36, 75).getRGB(), 3, false, 5, 0, screenW, screenH);
         addDesk(ballDesk);
     }
 
@@ -25,7 +25,6 @@ public class BallDesks {
     }
 
     public void removeDesk(BallDesk ballDesk) {
-
     }
 
     public void changeVisibility(BallDesk ballDesk) {
